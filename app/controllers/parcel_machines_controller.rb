@@ -1,9 +1,9 @@
 class ParcelMachinesController < ApplicationController
 
   def index
-    response ||= Faraday.get('https://www.omniva.lt/locations.json')
+    json = REDIS.get "omniva"
 
-    parcel_machines = JSON.parse(response.body)
+    @parcel_machines = JSON.parse(json)
   end
 
   def show
