@@ -1,3 +1,20 @@
 <div>
-  herllo
+  <table>
+    <thead>
+      <tr>
+        <th>ZIP</th>
+        <th>Name</th>
+        <th>Address</th>
+      </tr>
+    </thead>
+
+    <%= @parcel_machines.each do |pm| %>
+      <tr>
+        <td><%= pm["ZIP"] %></td>
+        <td><%= pm["NAME"] %></td>
+        <td><%= pm["A1_NAME"] %></td>
+      </tr>
+    <% end %>
+  </table>
+
 </div>
