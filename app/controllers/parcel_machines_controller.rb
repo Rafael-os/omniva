@@ -25,12 +25,10 @@ class ParcelMachinesController < ApplicationController
     if column == "zip"
       filtered_parcel_machines = parsed_response.select{ |h| h["ZIP"].include?(params[:q]) }
       ParcelMachinesDecorator.decorate_collection(filtered_parcel_machines)
-    end
-    if column == "name"
+    elsif column == "name"
       filtered_parcel_machines = parsed_response.select{ |h| h["NAME"].include?(params[:q]) }
       ParcelMachinesDecorator.decorate_collection(filtered_parcel_machines)
-    end
-    if column == "address"
+    else column == "address"
       filtered_parcel_machines = parsed_response.select{ |h| h["A0_NAME"].include?(params[:q]) ||
                                                              h["A1_NAME"].include?(params[:q]) ||
                                                              h["A2_NAME"].include?(params[:q]) || 
