@@ -1,3 +1,2 @@
 class ParcelMachine < ApplicationRecord
-  
 end

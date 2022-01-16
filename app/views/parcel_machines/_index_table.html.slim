@@ -7,7 +7,7 @@ table
       th Info
   - @parcel_machines.each do |pm|
     tr
-      td = pm["ZIP"]
-      td = pm["NAME"] 
+      td = pm[:ZIP]
+      td = pm[:NAME] 
       td = pm.full_address
-      td = link_to "info", parcel_machine_path(id: pm["NAME"])
+      td = link_to "info", parcel_machine_path(id: pm[:NAME])
