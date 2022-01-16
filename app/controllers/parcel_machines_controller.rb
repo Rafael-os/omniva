@@ -1,14 +1,22 @@
 class ParcelMachinesController < ApplicationController
 
   def index
-    json = REDIS.get "omniva"
+    get_json
 
-    parsed_response = JSON.parse(json)
+    response = REDIS.get "omniva"
+
+    parsed_response = JSON.parse(response)
 
     @parcel_machines = ParcelMachinesDecorator.decorate_collection(parsed_response)
   end
 
   def show
 
+  end
+
+  private
+
+  def get_json
+    return OmnivaService.call if (REDIS.get "omniva").nil?
   end
 end
