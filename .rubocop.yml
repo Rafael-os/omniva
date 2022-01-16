@@ -1,0 +1,17 @@
+inherit_from:
+  - .rubocop_account.yml
+
+require:
+  - rubocop-rails
+
+AllCops:
+  SuggestExtensions: false
+  NewCops: enable
+  TargetRubyVersion: 3.0
+  Exclude:
+    - "vendor/**/*"
+    - "db/schema.rb"
+    - "node_modules/**/*"
+    - "bin/*"
+    - "tmp/**/*"
+    - "Rakefile"

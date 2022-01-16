@@ -1,0 +1,50 @@
+Rails/Validation:
+  Enabled: true
+  Include:
+    - app/models/**/*.rb
+    - app/form_objects/**/*.rb
+Style/RescueStandardError:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/RedundantSelf:
+  Enabled: false
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Naming/AccessorMethodName:
+  Enabled: true
+Naming/PredicateName:
+  Enabled: true
+  NamePrefix:
+  - !ruby/regexp /(.*?)_is_(.*?)/
+  - is_
+  - has_
+  - have_
+  ForbiddenPrefixes:
+  - !ruby/regexp /(.*?)_is_(.*?)/
+  - is_
+  - has_
+  - have_
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'config/routes.rb'
+Lint/MissingSuper:
+  Exclude:
+    - 'app/services/**/*'
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/**/*'
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'config/**/*'
+Metrics/AbcSize:
+  Max: 18
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: consistent_comma
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: consistent_comma
