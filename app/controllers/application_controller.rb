@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
   private
 
   def verify_omniva_json
-    if (REDIS.get "omniva").nil?
-      Rails.logger.info 'No registry on redis, fetching now'
+    return unless (REDIS.get "omniva").nil?
 
-      OmnivaService.call 
-    end
+    Rails.logger.info "No registry on redis, fetching now"
+
+    OmnivaService.call
   end
 end

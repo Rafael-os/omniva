@@ -7,13 +7,13 @@ class ParcelMachinesController < ApplicationController
     else
       @parcel_machines = ParcelMachinesDecorator.decorate_collection(parsed_response)
     end
-    
+
     table_xls
   end
 
   def show
-    parcel_machine = parsed_response.find {|pm| pm[:NAME] = params["id"]}
-    
+    parcel_machine = parsed_response.find { |pm| pm[:NAME] == params["id"] }
+
     @parcel_machine = ParcelMachinesDecorator.decorate(parcel_machine)
   end
 
@@ -25,27 +25,31 @@ class ParcelMachinesController < ApplicationController
     JSON.parse(response, symbolize_names: true)
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
   def search_query(column)
-    if column == "zip"
-      filtered_parcel_machines = parsed_response.select{ |h| h[:ZIP].include?(params[:q]) }
-      ParcelMachinesDecorator.decorate_collection(filtered_parcel_machines)
-    elsif column == "name"
-      filtered_parcel_machines = parsed_response.select{ |h| h[:NAME].include?(params[:q]) }
-      ParcelMachinesDecorator.decorate_collection(filtered_parcel_machines)
-    else column == "address"
-      filtered_parcel_machines = parsed_response.select{ |h| h[:A0_NAME].include?(params[:q]) ||
-                                                             h[:A1_NAME].include?(params[:q]) ||
-                                                             h[:A2_NAME].include?(params[:q]) || 
-                                                             h[:A3_NAME].include?(params[:q]) || 
-                                                             h[:A4_NAME].include?(params[:q]) || 
-                                                             h[:A5_NAME].include?(params[:q]) || 
-                                                             h[:A6_NAME].include?(params[:q]) || 
-                                                             h[:A7_NAME].include?(params[:q]) ||
-                                                             h[:A8_NAME].include?(params[:q])
-                                                        }
-      ParcelMachinesDecorator.decorate_collection(filtered_parcel_machines)
-    end
+    filtered_parcel_machines = case column
+                               when "zip"
+                                 parsed_response.select { |h| h[:ZIP].include?(params[:q]) }
+                               when "name"
+                                 parsed_response.select { |h| h[:NAME].include?(params[:q]) }
+                               else
+                                 parsed_response.select do |h|
+                                   h[:A0_NAME].include?(params[:q]) ||
+                                     h[:A1_NAME].include?(params[:q]) ||
+                                     h[:A2_NAME].include?(params[:q]) ||
+                                     h[:A3_NAME].include?(params[:q]) ||
+                                     h[:A4_NAME].include?(params[:q]) ||
+                                     h[:A5_NAME].include?(params[:q]) ||
+                                     h[:A6_NAME].include?(params[:q]) ||
+                                     h[:A7_NAME].include?(params[:q]) ||
+                                     h[:A8_NAME].include?(params[:q])
+                                 end
+                               end
+    ParcelMachinesDecorator.decorate_collection(filtered_parcel_machines)
   end
+
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def table_xls
     data = @parcel_machines.object
@@ -57,6 +61,6 @@ class ParcelMachinesController < ApplicationController
       end
     end
   rescue
-    redirect_to root_path, notice: 'No records found'
+    redirect_to root_path, notice: "No records found"
   end
 end

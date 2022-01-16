@@ -1,7 +1,10 @@
 .container
   - flash.each do |key, message|
-    = message
-  = link_to "Return to root", root_path
-  = render "components/search_field"
-  = render "components/export_xls"
+    .alert = message
+  .back-root
+    = link_to "Return to root", root_path
+  .search
+    = render "components/search_field"
+  .export
+    = render "components/export_xls"
   = render "index_table"

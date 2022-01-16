@@ -1,5 +1,5 @@
 class ParcelMachinesDecorator < ApplicationDecorator
-  def full_address
+  def full_address # rubocop:disable Metrics/AbcSize
     a0 = object[:A0_NAME]
     a1 = object[:A1_NAME]
     a2 = object[:A2_NAME]
