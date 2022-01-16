@@ -1,0 +1,12 @@
+= form_tag(parcel_machines_path, method: :get) do 
+  = text_field_tag(:q, params[:q], placeholder: "Case SENSITIVE search")
+  = radio_button_tag 'field', 'zip', checked: true
+  span
+    | ZIP code
+  = radio_button_tag 'field', 'name'
+  span
+    | Name
+  = radio_button_tag 'field', 'address'
+  span
+    | Address
+  = submit_tag ("Search")
